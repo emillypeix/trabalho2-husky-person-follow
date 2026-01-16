@@ -1,5 +1,5 @@
 # Trabalho 2 – Husky Person Follow  
-ROS 2 Humble + Gazebo (world office)
+ROS 2 Humble + Gazebo (world office) 
 
 ## Visão geral
 Este projeto implementa um comportamento totalmente autônomo para o robô Clearpath Husky, no qual o robô:
