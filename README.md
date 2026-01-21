@@ -46,6 +46,68 @@ Para executar o projeto, o sistema deve possuir:
   - `ros_gz_sim`
   - `ros_gz_bridge`
 
+## Instalação e configuração do ambiente
+Esta seção descreve os passos necessários para preparar o ambiente de execução do projeto, conforme a documentação oficial da Clearpath Robotics e do Gazebo.
+
+### Instalação dos pacotes Clearpath (Offboard PC)
+Comandos baseados na documentação oficial:
+https://docs.clearpathrobotics.com/docs/ros2humble/ros/installation/offboard_pc
+
+```bash
+wget https://packages.clearpathrobotics.com/public.key -O - | sudo apt-key add -
+
+sudo sh -c 'echo "deb https://packages.clearpathrobotics.com/stable/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/clearpath-latest.list'
+
+sudo apt-get update
+```
+
+Adicionar a lista do rosdep da Clearpath:
+
+```bash
+sudo wget https://raw.githubusercontent.com/clearpathrobotics/public-rosdistro/master/rosdep/50-clearpath.list \
+  -O /etc/ros/rosdep/sources.list.d/50-clearpath.list
+
+rosdep update
+```
+
+### Instalação do simulador Gazebo (Ignition Fortress)
+Comandos baseados na documentação oficial:
+https://docs.clearpathrobotics.com/docs/ros2humble/ros/tutorials/simulator/install
+
+```bash
+sudo apt-get update && sudo apt-get install wget
+
+sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" > /etc/apt/sources.list.d/gazebo-stable.list'
+
+wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+
+sudo apt-get update
+sudo apt-get install ignition-fortress
+```
+
+### Ferramentas adicionais 
+```bash
+source /opt/ros/humble/setup.bash
+sudo apt install python3-vcstool
+```
+
+### Pacote de navegação (Nav2)
+O sistema utiliza o Nav2 como algoritmo de navegação do ROS 2, incluindo localização, planejamento e controle.
+O pacote Nav2 deve ser instalado conforme a documentação oficial do ROS 2 Humble.
+
+### Compilação do workspace do trabalho (TR_ws)
+O workspace do trabalho (TR_ws) consiste nos seguintes pacotes:
+
+- pacotes Clearpath;
+- pacotes de navegação (Nav2);
+- pacotes de exploração;
+- pacotes de percepção (YOLO);
+- pacotes personalizados do trabalho.
+
+### Observação 
+Os pacotes Clearpath e Gazebo não são versionados neste repositório, pois são dependências externas instaladas via gerenciador de pacotes (apt).
+O repositório contém apenas o código necessário para reproduzir a solução proposta, conforme exigido no roteiro do trabalho.
+
 ## Estrutura do repositório
 O repositório contém um workspace ROS completo:
 ```text
@@ -101,10 +163,6 @@ source /opt/ros/humble/setup.bash
 source ~/ros2_ws/install/setup.bash
 ros2 launch person_goal_navigator person_follow.launch.py side:=left
 ```
-
-# Parâmetros Disponíveis
-- **`side:=left`** → Robô posiciona-se à **esquerda** da pessoa
-- **`side:=right`** → Robô posiciona-se à **direita** da pessoa
 
 # Funcionamento do Sistema
 
