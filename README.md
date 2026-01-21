@@ -104,10 +104,6 @@ O workspace do trabalho (TR_ws) consiste nos seguintes pacotes:
 - pacotes de percepção (YOLO);
 - pacotes personalizados do trabalho.
 
-### Observação 
-Os pacotes Clearpath e Gazebo não são versionados neste repositório, pois são dependências externas instaladas via gerenciador de pacotes (apt).
-O repositório contém apenas o código necessário para reproduzir a solução proposta, conforme exigido no roteiro do trabalho.
-
 ## Estrutura do repositório
 O repositório contém um workspace ROS completo:
 ```text
@@ -133,36 +129,22 @@ colcon build
 source install/setup.bash
 ```
 
-## Inicialização da simulação
-
-Em um terminal, iniciar o ambiente simulado com o Husky no mundo office:
-
-```bash
-source /opt/ros/humble/setup.bash
-ros2 launch clearpath_gz simulation.launch.py world:=office
-```
-
-O robô é inicializado automaticamente em uma posição válida do ambiente.
-
-## Execução do sistema de percepção (YOLO)
-
-Em outro terminal, iniciar o detector de pessoas baseado em YOLO:
-
-```bash
-source /opt/ros/humble/setup.bash
-source ~/ros2_ws/install/setup.bash
-ros2 launch yolo_ros yolo.launch.py
-```
-
 # Execução do Comportamento Autônomo
 
-Em um terminal Ubuntu, execute o comportamento principal com o comando:
-
+Em um terminal Ubuntu, execute o sistema completo (simulação, navegação e comportamento) com um único arquivo launch:
 ```bash
 source /opt/ros/humble/setup.bash
 source ~/ros2_ws/install/setup.bash
-ros2 launch person_goal_navigator person_follow.launch.py side:=left
+ros2 launch person_goal_navigator bringup_all.launch.py
 ```
+
+Este launch inicializa automaticamente:
+
+- o robô Husky no ambiente simulado;
+- os sensores necessários (câmera, laser e IMU);
+- o sistema de navegação (Nav2);
+- o sistema de percepção baseado em YOLO;
+- o comportamento autônomo de aproximação e posicionamento ao lado da pessoa.
 
 # Funcionamento do Sistema
 
