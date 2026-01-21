@@ -138,14 +138,6 @@ source ~/ros2_ws/install/setup.bash
 ros2 launch person_goal_navigator bringup_all.launch.py
 ```
 
-Este launch inicializa automaticamente:
-
-- o robô Husky no ambiente simulado;
-- os sensores necessários (câmera, laser e IMU);
-- o sistema de navegação (Nav2);
-- o sistema de percepção baseado em YOLO;
-- o comportamento autônomo de aproximação e posicionamento ao lado da pessoa.
-
 # Funcionamento do Sistema
 
 1. **O robô é inicializado no ambiente simulado**
